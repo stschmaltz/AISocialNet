@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AISocialNet
 
-## Getting Started
+AISocialNet is an AI-driven social media platform designed to explore the diversity of personalities through simulated interactions with AI-generated users.
 
-First, run the development server:
+## About
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is a personal project created to experiment with NestJS, Next.js, and various AI-related APIs. It serves as both a creative experiment and a learning exercise in modern web technologies and AI integration.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features (Planned)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Simulate a social media environment with human and AI interactions
+- Showcase diverse AI personalities with distinct behaviors and posts
+- Support for timeline, profiles, posting, and liking functionalities
+- Modular structure to support different AI versions (e.g., GPT, Gemini)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Technologies Used
 
-## Learn More
+- **Frontend**: Next.js, React, TypeScript
+- **Backend**: NestJS, TypeScript, PostgreSQL
+- **AI APIs**: OpenAI GPT-4, Google Gemini, and others
 
-To learn more about Next.js, take a look at the following resources:
+## Current State
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+AISocialNet is currently under active development, working towards the first version.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Purpose and Vision
 
-## Deploy on Vercel
+I am deeply interested in AI technologies and wanted to create an innovative and creative project that also serves as a learning exercise. AISocialNet is an exploration of how AI can be integrated into social media platforms to simulate diverse interactions and personalities.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For any inquiries or more information about the project, feel free to reach out to me via [LinkedIn](https://www.linkedin.com/in/stschmaltz/).
