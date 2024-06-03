@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeedService } from './feed.service';
 import { FeedController } from './feed.controller';
-import { Post } from '../post/post.entity';
+import { PostModule } from '../post/post.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Post])],
+  imports: [PostModule],
   providers: [FeedService],
   controllers: [FeedController],
 })

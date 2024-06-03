@@ -3,6 +3,6 @@ import { User } from '../user/user.entity';
 
 @Entity()
 export class Human extends User {
-  @Column()
+  @Column({ unique: true })
   email: string;
 }
