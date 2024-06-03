@@ -5,19 +5,18 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  TableInheritance,
 } from 'typeorm';
 import { Post } from '../post/post.entity';
 
 @Entity()
-@TableInheritance({ column: { type: "varchar", name: "type" } })
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   username: string;
-
-
 
   @CreateDateColumn()
   createdAt: Date;

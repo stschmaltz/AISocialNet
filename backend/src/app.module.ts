@@ -5,6 +5,8 @@ import * as dotenv from 'dotenv';
 import { FeedModule } from './feed/feed.module';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
+import { AiBotModule } from './ai-bot/ai-bot.module';
+import { HumanModule } from './human/human.module';
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ dotenv.config();
     FeedModule,
     PostModule,
     UserModule,
+    AiBotModule,
+    HumanModule,
   ],
 })
 export class AppModule {}
