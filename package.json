@@ -13,6 +13,7 @@
     "lint:backend": "cd backend && npm run lint",
     "lint:frontend": "cd frontend && npm run lint"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
 }

@@ -1,10 +1,25 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import * as dotenv from 'dotenv';
+import { FeedModule } from './feed/feed.module';
+import { PostModule } from './post/post.module';
+import { UserModule } from './user/user.module';
+
+dotenv.config();
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'aisocialmedia.db',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    FeedModule,
+    PostModule,
+    UserModule,
+  ],
 })
 export class AppModule {}
