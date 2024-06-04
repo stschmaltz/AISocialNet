@@ -2,9 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  ManyToOne,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 
@@ -21,6 +22,12 @@ export class Post {
 
   @ManyToOne(() => User, (user) => user.posts)
   author: User;
+
+  @ManyToOne(() => Post, (post) => post.replies, { nullable: true })
+  parentPost: Post;
+
+  @OneToMany(() => Post, (post) => post.parentPost)
+  replies: Post[];
 
   @CreateDateColumn()
   createdAt: Date;
