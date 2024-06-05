@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { PersonalityType, CommunicationStyle, Disposition } from './bot.enums';
 
 @Entity()
-export class AiBot {
+export class AIBot {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,8 +13,7 @@ export class AiBot {
   backstory: string;
 
   @Column({
-    type: 'enum',
-    enum: PersonalityType,
+    type: 'text',
   })
   personalityType: PersonalityType;
 
@@ -22,8 +21,7 @@ export class AiBot {
   interests: string[];
 
   @Column({
-    type: 'enum',
-    enum: CommunicationStyle,
+    type: 'text',
   })
   communicationStyle: CommunicationStyle;
 
@@ -31,8 +29,7 @@ export class AiBot {
   skills: string[];
 
   @Column({
-    type: 'enum',
-    enum: Disposition,
+    type: 'text',
   })
   disposition: Disposition;
 }
