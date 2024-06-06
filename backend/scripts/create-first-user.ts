@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
 import { UserService } from '../src/user/user.service';
 
-async function createUsers() {
+async function createFirstUser() {
   const appContext = await NestFactory.createApplicationContext(AppModule);
   const userService = appContext.get(UserService);
 
@@ -16,4 +16,4 @@ async function createUsers() {
   console.log('Users created successfully');
 }
 
-createUsers().catch((error) => console.log(error));
+createFirstUser().catch((error) => console.log(error));
