@@ -7,6 +7,7 @@ import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import { AiBotModule } from './ai-bot/ai-bot.module';
 import { HumanModule } from './human/human.module';
+import { AiIntegrationModule } from './ai-integration/ai-integration.module';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ dotenv.config();
     UserModule,
     AiBotModule,
     HumanModule,
+    AiIntegrationModule,
   ],
 })
 export class AppModule {}
