@@ -1,14 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ChildEntity, Column } from 'typeorm';
+import { User } from '../user/user.entity';
 import { PersonalityType, CommunicationStyle, Disposition } from './bot.enums';
 
-@Entity()
-export class AIBot {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  username: string;
-
+@ChildEntity()
+export class AIBot extends User {
   @Column('text')
   backstory: string;
 

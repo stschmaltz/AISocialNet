@@ -1,13 +1,15 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { PostService } from './post.service';
-import { CreatePostInput } from './post.types';
+import { CreateBotPostInput } from './post.types';
 
 @Controller('post')
 export class PostController {
   constructor(private postService: PostService) {}
 
-  @Post()
-  async createPost(@Body() input: CreatePostInput) {
-    return this.postService.createPost(input);
+  // create bot post
+  @Post('bot')
+  async createBotPost(@Body() input: CreateBotPostInput) {
+    return this.postService.createBotPost(input);
   }
+  // POST /post/bot
 }

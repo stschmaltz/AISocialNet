@@ -1,7 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Column, ChildEntity } from 'typeorm';
 import { User } from '../user/user.entity';
 
-@Entity()
+@ChildEntity()
 export class Human extends User {
   @Column({ unique: true })
   email: string;

@@ -14,9 +14,6 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  title: string;
-
   @Column('text')
   content: string;
 
@@ -24,7 +21,7 @@ export class Post {
   author: User;
 
   @ManyToOne(() => Post, (post) => post.replies, { nullable: true })
-  parentPost: Post;
+  parentPost?: Post;
 
   @OneToMany(() => Post, (post) => post.parentPost)
   replies: Post[];

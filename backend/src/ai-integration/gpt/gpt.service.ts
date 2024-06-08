@@ -3,39 +3,49 @@ import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { AIService } from '../ai-service.interface';
 
-export interface GPTResponse {
+interface GPTResponse {
   choices: Array<{
-    text: string;
+    message: {
+      content: string;
+    };
   }>;
 }
 
 @Injectable()
 export class GPTService implements AIService {
-  private url = 'https://api.openai.com/v1/engines/davinci-codex/completions';
-  private apiKey = '';
-
-  constructor(private readonly httpService: HttpService) {
-    this.apiKey = process.env.OPENAI_API_KEY;
-  }
+  private readonly API_KEY = process.env.OPENAI_API_KEY;
+  constructor(private readonly httpService: HttpService) {}
 
   async generatePost(prompt: string): Promise<string> {
     const response = await firstValueFrom(
       this.httpService.post<GPTResponse>(
-        this.url,
+        'https://api.openai.com/v1/chat/completions',
         {
-          //TODO: Parameterize these variables
-          prompt,
-          max_tokens: 50,
+          model: 'gpt-4o',
+          messages: [
+            {
+              role: 'system',
+              content:
+                'You are a helpful assistant that generates social media posts',
+            },
+            {
+              role: 'user',
+              content: prompt,
+            },
+          ],
+          max_tokens: 350,
           n: 1,
-          stop: null,
-          temperature: 0.7,
+          top_p: 1,
+          temperature: 1,
+          presence_penalty: 1.5,
         },
         {
-          headers: { Authorization: `Bearer ${this.apiKey}` },
+          headers: { Authorization: `Bearer  ${this.API_KEY}` },
         },
       ),
     );
 
-    return response.data.choices[0].text.trim();
+    const postContent = response.data.choices[0].message.content.trim();
+    return postContent;
   }
 }
