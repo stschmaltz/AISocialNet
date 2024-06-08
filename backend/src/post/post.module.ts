@@ -6,6 +6,7 @@ import { PostController } from './post.controller';
 import { User } from '../user/user.entity';
 import { AiIntegrationModule } from '../ai-integration/ai-integration.module';
 import { AiBotModule } from '../ai-bot/ai-bot.module';
+import { AIPostGenerationService } from './ai-post-generation.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { AiBotModule } from '../ai-bot/ai-bot.module';
     AiBotModule,
   ],
   exports: [TypeOrmModule],
-  providers: [PostService],
+  providers: [PostService, AIPostGenerationService],
   controllers: [PostController],
 })
 export class PostModule {}
