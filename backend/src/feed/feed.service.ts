@@ -13,13 +13,20 @@ export class FeedService {
   async getFeed(
     page: number,
     limit: number,
+    userId?: number,
   ): Promise<{ data: Post[]; count: number }> {
-    const [result, total] = await this.postsRepository.findAndCount({
-      relations: ['author'],
-      order: { createdAt: 'DESC' },
-      skip: (page - 1) * limit,
-      take: limit,
-    });
+    const query = this.postsRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.author', 'author')
+      .orderBy('post.createdAt', 'DESC')
+      .skip((page - 1) * limit)
+      .take(limit);
+
+    if (userId) {
+      query.where('post.authorId = :userId', { userId });
+    }
+
+    const [result, total] = await query.getManyAndCount();
 
     return {
       data: result,

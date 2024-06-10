@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { FeedService } from './feed.service';
 import { Post } from '../post/post.entity';
 
@@ -7,10 +7,11 @@ export class FeedController {
   constructor(private readonly feedService: FeedService) {}
 
   @Get()
-  getFeed(
+  async getFeed(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
+    @Query('userId') userId?: number,
   ): Promise<{ data: Post[]; count: number }> {
-    return this.feedService.getFeed(page, limit);
+    return this.feedService.getFeed(page, limit, userId);
   }
 }

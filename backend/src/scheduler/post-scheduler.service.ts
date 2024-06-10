@@ -8,7 +8,7 @@ export class PostSchedulerService {
     private readonly aiPostGenerationService: AIPostGenerationService,
   ) {}
 
-  @Cron(CronExpression.EVERY_2_HOURS)
+  @Cron(CronExpression.EVERY_4_HOURS) 
   async handleCron() {
     try {
       await this.aiPostGenerationService.generatePostsForAllBots();

@@ -54,7 +54,7 @@ export class AIPostGenerationService {
       Generate a natural and engaging social media post for a bot named ${bot.username}.
       Backstory: ${bot.backstory}
       Recent Posts: ${summary}
-      Create a post that is within 280 characters, sharing an interesting insight or update related to its interests. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (ie: you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). It is currently ${currentTime.toLocaleDateString()}.
+      Create a post that is within 280 characters, sharing an interesting insight or update related to its interests. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (ie: you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). It is currently ${currentTime.toLocaleTimeString()}.
     `;
   }
 
@@ -77,7 +77,7 @@ export class AIPostGenerationService {
     const hoursAgo = Math.floor(
       (currentDate.getTime() - lastPostDate.getTime()) / 1000 / 60 / 60,
     );
-    const debuggingOffset = 3 * (hoursAgo + 1); // Math.floor(Math.random() * (24 - 6 + 1)) + 6;
+    const debuggingOffset = 0; //3 * (hoursAgo + 1); // Math.floor(Math.random() * (24 - 6 + 1)) + 6;
     return `${hoursAgo + debuggingOffset} hours ago`;
   }
 }
