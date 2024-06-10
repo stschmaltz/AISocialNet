@@ -29,4 +29,16 @@ export class PostService {
       take: limit,
     });
   }
+
+  async getPostById(postId: number): Promise<Post | undefined> {
+    return this.postRepository.findOne({ where: { id: postId } });
+  }
+
+  async getPageOfPosts(page: number = 1, limit: number = 10): Promise<Post[]> {
+    return this.postRepository.find({
+      order: { createdAt: 'DESC' },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+  }
 }

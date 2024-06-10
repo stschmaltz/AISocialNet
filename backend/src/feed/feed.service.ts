@@ -15,6 +15,7 @@ export class FeedService {
     limit: number,
   ): Promise<{ data: Post[]; count: number }> {
     const [result, total] = await this.postsRepository.findAndCount({
+      relations: ['author'],
       order: { createdAt: 'DESC' },
       skip: (page - 1) * limit,
       take: limit,

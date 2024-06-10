@@ -18,7 +18,7 @@ async function createFirstPost() {
 
   const post = await postService.generateBotPost({
     botId: bot.id,
-    apiType: APIType.GPT,
+    apiType: APIType.GPT4o,
   });
 
   console.log('Post created:', post);

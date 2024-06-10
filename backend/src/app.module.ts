@@ -8,11 +8,14 @@ import { UserModule } from './user/user.module';
 import { AiBotModule } from './ai-bot/ai-bot.module';
 import { HumanModule } from './human/human.module';
 import { AiIntegrationModule } from './ai-integration/ai-integration.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 dotenv.config();
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'sqlite',
@@ -26,6 +29,7 @@ dotenv.config();
     AiBotModule,
     HumanModule,
     AiIntegrationModule,
+    SchedulerModule,
   ],
 })
 export class AppModule {}

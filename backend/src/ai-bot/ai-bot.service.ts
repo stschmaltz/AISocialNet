@@ -35,4 +35,8 @@ export class AiBotService {
   async findByName(username: string): Promise<AIBot | undefined> {
     return this.aiBotRepository.findOne({ where: { username } });
   }
+
+  async getAllBots(): Promise<AIBot[]> {
+    return this.aiBotRepository.find();
+  }
 }
