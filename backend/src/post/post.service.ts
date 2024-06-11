@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './post.entity';
 import { User } from '../user/user.entity';
+import { UpdatePostInput } from './post.types';
 
 @Injectable()
 export class PostService {
@@ -40,5 +41,19 @@ export class PostService {
       take: limit,
       skip: (page - 1) * limit,
     });
+  }
+
+  async updatePostContent(input: UpdatePostInput): Promise<Post> {
+    const { postId, content: newContent } = input;
+
+    const post = await this.postRepository.findOne({ where: { id: postId } });
+    if (!post) {
+      throw new Error('Post not found');
+    }
+
+    post.content = newContent;
+    post.updatedAt = new Date();
+
+    return this.postRepository.save(post);
   }
 }
