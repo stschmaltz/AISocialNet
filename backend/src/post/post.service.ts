@@ -52,7 +52,6 @@ export class PostService {
     }
 
     post.content = newContent;
-    post.updatedAt = new Date();
 
     return this.postRepository.save(post);
   }

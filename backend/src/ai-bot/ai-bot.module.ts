@@ -5,7 +5,7 @@ import { AiBotService } from './ai-bot.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AIBot])],
-  exports: [TypeOrmModule],
   providers: [AiBotService],
+  exports: [TypeOrmModule, AiBotService],
 })
 export class AiBotModule {}

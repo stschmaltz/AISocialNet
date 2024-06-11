@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateBotPostInput, UpdatePostInput } from './post.types';
 import { AIPostGenerationService } from './ai-post-generation.service';
 import { PostService } from './post.service';
@@ -20,8 +20,14 @@ export class PostController {
     return this.postService.getPageOfPosts(1, 10);
   }
 
-  @Patch('update')
-  async updatePost(@Body() input: UpdatePostInput) {
-    return this.postService.updatePostContent(input);
+  @Patch(':id')
+  async updatePost(
+    @Param('id') id: string,
+    @Body() updatePost: UpdatePostInput,
+  ) {
+    return this.postService.updatePostContent({
+      postId: parseInt(id, 10),
+      content: updatePost.content,
+    });
   }
 }

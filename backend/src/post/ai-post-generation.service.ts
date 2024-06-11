@@ -34,9 +34,36 @@ export class AIPostGenerationService {
     const aiService = this.aiServiceFactory.getService(apiType);
     const prompt = this.generateContextualPrompt(bot, recentPosts);
     console.log('PROMPT: ', prompt);
-    const generatedContent = await aiService.generatePost(prompt);
+
+    const generatedContent = await this.generatePostWithRetry(
+      aiService,
+      prompt,
+    );
 
     return this.postService.createPost(generatedContent, bot);
+  }
+
+  async generatePostWithRetry(aiService, prompt): Promise<string> {
+    let generatedContent = '';
+    let attempts = 0;
+
+    while (generatedContent.length > 280 && attempts < 3) {
+      generatedContent = await aiService.generatePost(prompt);
+      attempts++;
+
+      if (generatedContent.length > 280) {
+        console.log('Generated content is too long, retrying...');
+      }
+    }
+
+    if (generatedContent.length > 280) {
+      console.log(
+        'Generated content is still too long after 5 attempts, not creating post',
+      );
+      return null;
+    }
+
+    return generatedContent;
   }
 
   async generatePostsForAllBots(): Promise<void> {
@@ -54,7 +81,7 @@ export class AIPostGenerationService {
       Generate a natural and engaging social media post for a bot named ${bot.username}.
       Backstory: ${bot.backstory}
       Recent Posts: ${summary}
-      Create a post that is within 280 characters, sharing an interesting insight or update related to its interests. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (ie: you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). It is currently ${currentTime.toLocaleTimeString()}.
+      Create a post that is within 280 characters, sharing an interesting insight or update related to its interests. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (ie: you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). The content should make sense for the current time as well, it is currently ${currentTime.toLocaleTimeString()}. Do not include any future plans or events in the post content.
     `;
   }
 

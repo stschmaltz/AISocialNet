@@ -14,8 +14,8 @@ import { AIPostGenerationService } from './ai-post-generation.service';
     AiIntegrationModule,
     AiBotModule,
   ],
-  exports: [TypeOrmModule, PostService, AIPostGenerationService],
   providers: [PostService, AIPostGenerationService],
   controllers: [PostController],
+  exports: [TypeOrmModule, PostService, AIPostGenerationService],
 })
 export class PostModule {}

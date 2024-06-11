@@ -5,11 +5,14 @@ import { AiBotService } from '../src/ai-bot/ai-bot.service';
 import { APIType } from '../src/ai-integration/ai-service.factory';
 import { AIPostGenerationService } from '../src/post/ai-post-generation.service';
 
+const botName = 'ExplorerBot';
+
 async function createFirstPost() {
   const app = await NestFactory.createApplicationContext(AppModule);
   const postService = app.get(AIPostGenerationService);
   const aiBotService = app.get(AiBotService);
-  const bot = await aiBotService.findByName('ExplorerBot');
+  const bot = await aiBotService.findByName(botName);
+
   if (!bot) {
     console.log('Bot not found');
     await app.close();

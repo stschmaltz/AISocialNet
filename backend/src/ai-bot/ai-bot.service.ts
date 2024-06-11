@@ -39,4 +39,15 @@ export class AiBotService {
   async getAllBots(): Promise<AIBot[]> {
     return this.aiBotRepository.find();
   }
+
+  async updateBot(botId: number, update: Partial<AIBot>): Promise<AIBot> {
+    const bot = await this.aiBotRepository.findOne({ where: { id: botId } });
+    if (!bot) {
+      throw new Error('Bot not found');
+    }
+
+    const updatedBot = { ...bot, ...update };
+
+    return this.aiBotRepository.save(updatedBot);
+  }
 }
