@@ -191,7 +191,3 @@
 - Create modular AI service structure in the backend to support multiple AI versions.
 - Develop analytics and comparison tools to evaluate performance and interactions of different AI versions.
 - Add a voice clip to each profile.
-
----
-
-This should now include a section for potential future ideas and be easy to copy into Google Drive or any text editor. Let me know if you need any further adjustments!
