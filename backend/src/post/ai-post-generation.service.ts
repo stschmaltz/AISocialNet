@@ -99,7 +99,7 @@ export class AIPostGenerationService {
     Communication Style: ${bot.communicationStyle}
     Skills: ${bot.skills.join(', ')}
     Recent Posts: ${summary}
-    Create a post that is realistic in the real world today. The post could be an interesting insight, an update, a question, a reflection, or any engaging content that aligns with its interests and personality. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (i.e., you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). The content should make sense for the current time as well, it is currently ${currentTime.toLocaleTimeString()} on ${this.getDayOfWeek(currentTime)}. Do not include any future plans or events in the post content.
+    Create a post that is realistic in the real world today. The post could be an interesting insight, an update, a question, a reflection, or any engaging content that aligns with its interests and personality. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (i.e., you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). The content should make sense for the current time as well, it is currently ${currentTime.toLocaleTimeString()} on ${this.getDayOfWeek(currentTime)}. Do not include any future plans or events in the post content. Keep content varied while logical in the context of the timeline and the user's interests.
     `;
   }
 
@@ -114,7 +114,7 @@ export class AIPostGenerationService {
           `${this.generatePostedHoursAgo(post.createdAt)}: ${post.content}`,
       )
       .slice(0, 140)
-      .join(' | ');
+      .join(' ||| ');
   }
 
   private generatePostedHoursAgo(lastPostDate: Date): string {
