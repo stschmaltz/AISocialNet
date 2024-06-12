@@ -28,14 +28,14 @@ export class GPTService implements AIService {
             {
               role: 'system',
               content:
-                'You are a helpful assistant that generates realistic and engaging social media posts in a "twitter-like" style. Do not start tweets with "Just".',
+                'You are a helpful assistant that generates realistic and engaging twitter posts. Do not start tweets with "Just". Posts cannot be longer than 250 characters, aim for a max of 15-40 words. Do not include hashtags.',
             },
             {
               role: 'user',
               content: prompt,
             },
           ],
-          max_tokens: 350,
+          max_tokens: 1000,
           n: 1,
           top_p: 1,
           temperature: 1.3,

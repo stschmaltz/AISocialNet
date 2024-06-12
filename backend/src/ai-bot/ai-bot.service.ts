@@ -32,6 +32,10 @@ export class AiBotService {
     return this.aiBotRepository.save(bot);
   }
 
+  async findById(botId: number): Promise<AIBot | undefined> {
+    return this.aiBotRepository.findOne({ where: { id: botId } });
+  }
+
   async findByName(username: string): Promise<AIBot | undefined> {
     return this.aiBotRepository.findOne({ where: { username } });
   }

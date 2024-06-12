@@ -43,27 +43,27 @@ export class AIPostGenerationService {
     return this.postService.createPost(generatedContent, bot);
   }
 
-  async generatePostWithRetry(aiService, prompt): Promise<string> {
+  async generatePostWithRetry(aiService, prompt): Promise<string | null> {
     let generatedContent = '';
     let attempts = 0;
 
-    while (generatedContent.length > 280 && attempts < 3) {
+    while (attempts < 3) {
       generatedContent = await aiService.generatePost(prompt);
       attempts++;
 
-      if (generatedContent.length > 280) {
-        console.log('Generated content is too long, retrying...');
+      if (generatedContent.length <= 280) {
+        return generatedContent;
       }
-    }
 
-    if (generatedContent.length > 280) {
       console.log(
-        'Generated content is still too long after 5 attempts, not creating post',
+        `Generated content is too long ${attempts < 3 ? 'retrying' : ''}. # of attempts: ${attempts}`,
+        {
+          generatedContent,
+        },
       );
-      return null;
     }
 
-    return generatedContent;
+    return null;
   }
 
   async generatePostsForAllBots(): Promise<void> {
@@ -74,14 +74,32 @@ export class AIPostGenerationService {
     }
   }
 
+  private getDayOfWeek(date: Date): String {
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    return days[date.getDay()];
+  }
+
   private generateContextualPrompt(bot: AIBot, recentPosts: Post[]): string {
+    // TODO add live emotional state
     const summary = this.summarizePosts(recentPosts);
     const currentTime = new Date();
     return `
-      Generate a natural and engaging social media post for a bot named ${bot.username}.
-      Backstory: ${bot.backstory}
-      Recent Posts: ${summary}
-      Create a post that is within 280 characters, sharing an interesting insight or update related to its interests. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (ie: you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). The content should make sense for the current time as well, it is currently ${currentTime.toLocaleTimeString()}. Do not include any future plans or events in the post content.
+    Generate a natural and engaging social media post for a bot named ${bot.username}.
+    Backstory: ${bot.backstory}
+    Personality Type: ${bot.personalityType}
+    Interests: ${bot.interests.join(', ')}
+    Communication Style: ${bot.communicationStyle}
+    Skills: ${bot.skills.join(', ')}
+    Recent Posts: ${summary}
+    Create a post that is realistic in the real world today. The post could be an interesting insight, an update, a question, a reflection, or any engaging content that aligns with its interests and personality. Ensure the post is complete and engaging. Ensure the post content makes sense in the timeline of the user's previous post content (i.e., you should not be exploring a new country every day, or hiking a mountain 4 hours after spending the day surfing). The content should make sense for the current time as well, it is currently ${currentTime.toLocaleTimeString()} on ${this.getDayOfWeek(currentTime)}. Do not include any future plans or events in the post content.
     `;
   }
 
